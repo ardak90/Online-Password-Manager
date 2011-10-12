@@ -1,0 +1,159 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+	<ui:define name="head">
+		<script type="text/javascript">
+       jQuery(document).ready(
+            function(){
+              init();
+                } 
+    	       );
+       function init(){
+
+    	   jQuery('#invisiblePanel').hide();
+    	   jQuery('#mainForm:username').attr('value','Username');
+           jQuery('#mainForm:password').attr('value','Password');
+          
+           }
+       function showImage(){
+    	   jQuery('#invisiblePanel').hide();
+    	
+    	   jQuery('#invisiblePanel').fadeIn("slow");
+   
+           }
+
+               </script>
+	</ui:define>
+	<ui:define name="menu">
+		<div id="sign_in"><h:form id="mainForm">
+			<h:panelGrid columns="3" cellspacing="0px;">
+				<h:inputText value="#{authenticator.username}"
+					onfocus="jQuery('#pre2_').text(' ')" id="username"
+					style="margin-left: 5px; margin-rigth:5px; background-image: url(img/btn7.png); width:107px; height: 28px; border-style: hidden; border-width: 0px; color: #8AB08A; font-size: 13px; padding-left:7px; padding-right:7px;">
+					<span class="holder2" id="pre2_">Username</span>
+					<a4j:support event="onblur" action="#{authenticator.preAuthenticate()}" reRender="invis" ajaxSingle="true" oncomplete="showImage()"/>
+				</h:inputText>
+				<h:inputSecret value="#{authenticator.password}" label="shady"
+					title="asdas" id="password" onfocus="jQuery('#pre_').text(' ')"
+					style="margin-left: 5px; margin-rigth:5px; background-image: url(img/btn7.png); width:107px; height: 28px; border-style: hidden; border-width: 0px; color: #8AB08A; font-size: 13px; padding-left:7px; padding-right:7px;">
+					<span class="holder" id="pre_">Password</span>
+				</h:inputSecret>
+				<h:commandButton action="#{authenticator.authenticate()}"
+					style="margin-left: 5px; margin-rigth:5px; height:28px;"
+					value="Sign In" />
+				<h:panelGrid columns="2" style=" margin-right:5px;">
+					<h:selectBooleanCheckbox value="#{rememberMe.enabled}" />
+					<h:outputText value="Remember me" style="font-size: 10px;" />
+				</h:panelGrid>
+				<h:outputLink style=" margin-left:5px; margin-right:5px;">Forgot it?</h:outputLink>
+			</h:panelGrid>
+		</h:form></div>
+	</ui:define>
+	
+	<ui:define name="body">
+     <a4j:outputPanel id="invis">
+       <s:div id="invisiblePanel" rendered="#{authenticator.preAuthenticate()==true}">
+         <rich:panel>
+         	<f:facet name="header">
+         	<h:outputText value="Confirm your image and phrase: " />
+         	</f:facet>
+         <s:graphicImage value="#{authenticator.userForPhishing.file.data}" >
+				<s:transformImageType contentType="#{file.mimeType}" />
+				<s:transformImageSize height="150" maintainRatio="true" />
+			</s:graphicImage>
+         </rich:panel>
+			
+			<h:panelGrid columns="2">
+			<h:outputText style="font-family:'Trebuchet MS'; font-size:14px;" value="Phrase: #{authenticator.userForPhishing.file.phrase}" />
+			<input type="button" value="Confirm" onclick="jQuery('#invisiblePanel').hide()" style="margin-left:32px;"/>
+			</h:panelGrid> 
+       </s:div>
+       </a4j:outputPanel>
+		<s:div id="login">
+
+			<s:div id="loginbox">
+
+				<s:div id="loginbox_content">
+				
+					<h:form>
+						<s:validateAll>
+							<h:panelGrid column="2">
+								<s:decorate template="layout/edit.xhtml" id="fullname">
+									<ui:define name="label">
+										<h:outputText value="Full name: "/>
+									</ui:define>
+									<h:inputText value="#{sign.user.fullname}" class="register_input"
+										style="margin-top:3px;" required="true"
+										requiredMessage="Enter your full name" />
+								</s:decorate>
+
+								<s:decorate template="layout/edit.xhtml">
+									<ui:define name="label">
+										<h:outputText value="Email: " />
+									</ui:define>
+									<h:inputText value="#{sign.user.email}" class="register_input" style="margin-top:3px;"
+										required="true"  requiredMessage="Enter your e-mail">
+										<a4j:support event="onblur" action="#{sign.check()}"
+											ajaxSingle="true" reRender="status" />
+									</h:inputText>
+								</s:decorate>
+
+								<s:decorate template="layout/edit.xhtml">
+									<ui:define name="label">
+										<h:outputText value="Phone #: " />
+									</ui:define>
+									<h:inputText value="#{sign.user.number}" class="register_input"
+										style="margin-top:3px;" required="true"
+										requiredMessage="Enter your number" />
+								</s:decorate>
+
+								<s:decorate template="layout/edit.xhtml">
+									<ui:define name="label">
+										<h:outputText value="Password: " />
+									</ui:define>
+									<h:inputSecret value="#{sign.password}" class="register_input"
+										style="margin-top:3px;" required="true"
+										requiredMessage="Enter your password" />
+								</s:decorate>
+
+								<s:decorate template="layout/edit.xhtml">
+									<ui:define name="label">
+										<h:outputText value="Re-enter Password: " />
+									</ui:define>
+									<h:inputSecret value="#{sign.repass}" class="register_input" style="margin-top:5px;" required="true"
+										requiredMessage="Re-enter your password" />
+								</s:decorate>
+								<center>
+								<h:outputText value="#{sign.status}" id="status"
+									style="" />
+								</center>
+							</h:panelGrid>
+							
+							<h:panelGrid columns="1"
+								style="margin-left:225px; margin-top: 10px;">
+								<h:commandButton value="Register" action="#{sign.register()}" 
+									style="height:28px;" />
+								
+								<h:outputText value="" />
+							</h:panelGrid>
+
+
+						</s:validateAll>
+
+					</h:form>
+
+				</s:div>
+			</s:div>
+
+
+		</s:div>
+
+	</ui:define>
+</ui:composition>

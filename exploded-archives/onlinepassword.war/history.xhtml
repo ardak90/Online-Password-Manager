@@ -1,0 +1,98 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+	<ui:define name="head">
+	<script>
+	jQuery(document).ready(
+    		function(){
+    			onReadyHistTable();
+    		});
+	function onReadyHistTable(){
+		jQuery('.delete').hide();
+		}
+	</script>
+	</ui:define>
+	
+	<ui:define name="menu">
+		<div id="sign_in">
+			<div id="logged_in">
+				<h:outputText value="Hi, #{authenticator.user.fullname}"/>
+			</div>
+			<div id="logged_in_buttons">
+				<a href="" style="cursor: pointer;"><h:graphicImage value="/img/logout2.png"/></a> 
+				<a href="" style="cursor: pointer;"><h:graphicImage value="/img/settings.png"/></a>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="body">
+		<div id="main_buttons">
+			<h:form>
+       <h:graphicImage value="img/manager.png" style="cursor:pointer;" onmouseover="jQuery(this).attr('src','img/manager_over.png');"
+											   onmouseout="jQuery(this).attr('src','img/manager.png');">
+	   		<a4j:support event="onclick" action="#{authenticator.moveToPasswords()}" ajaxSingle="true"/>
+	   </h:graphicImage>
+	   <div style="height: 10px;"></div>
+       <h:graphicImage value="img/history_state.png" style="cursor:pointer;">
+	   <a4j:support event="onclick" action="#{authenticator.moveToHistory()}" ajaxSingle="true"  />
+	   </h:graphicImage>
+	   <div style="height: 10px;"></div>
+       <h:graphicImage value="img/sms.png" style="cursor:pointer;" onmouseover="jQuery(this).attr('src','img/sms_over.png');"
+											   onmouseout="jQuery(this).attr('src','img/sms.png');">
+	   <a4j:support event="onclick" action="#{authenticator.moveToSMS()}" ajaxSingle="true"  />
+	   </h:graphicImage>
+	   </h:form></div>
+		<div id="content">
+			<s:div id="left_side">
+				<div id="newpass"></div>
+			</s:div>
+			<s:div id="right_side">
+				<div id="top_con"></div>
+				<div id="mid_con">
+
+				   <div style="hight:30px;"></div>
+					<div id="#{authenticator.styleForHistory}">
+					 <a4j:outputPanel id="histList">
+						<rich:dataGrid var="h" value="#{authenticator.histList}" columns="1" style="background-color: transparent;">
+						<h:form id="histForm">
+			       		<div id="history" onmouseover="jQuery(this).find('img').show()" onmouseout="jQuery(this).find('img').hide()">	
+			       			<div id="date" style="float:left;">
+			       			<div style="height: 10px;"></div>
+			       			<h:outputText value="#{h.FormattedDate()}"
+			       										 style="margin-bottom:10px; margin-left:51px; font-family:'Trebuchet MS'; font-size:14px;"	/></div>
+			       			<div id="time" style="float:left">
+			       			<div style="height: 10px;"></div>
+			       			<h:outputText value="#{h.FormattedTime()}"
+			       										 style="margin-bottom:10px; margin-left:30px; font-family:'Trebuchet MS'; font-size:14px;"	/>
+			       			</div>
+			       			<div id="comment">
+			       			<div style="height: 10px;"></div>
+			       			<h:outputText value="#{h.comment}"
+			       										 style="margin-bottom:10px; margin-left:30px; font-family:'Trebuchet MS'; font-size:14px;"	/>
+			       			<img src="img/error.png" class="delete" style="float:right; margin-right:10px; cursor:pointer;">
+			       				<a4j:support event="onclick" action="#{authenticator.deleteHist(h)}" reRender="histList" oncomplete="onReadyHistTable()"/>
+			       			</img>
+			       		
+			       			</div>
+			      		 </div>
+			      		 </h:form>
+			      		 </rich:dataGrid>	
+			      		 </a4j:outputPanel>
+			    	</div>	    	
+				</div>
+				<div id="btm_con"></div>
+			</s:div>
+			<!-- Right Side -->
+	</div>
+		<!-- Content -->
+
+	</ui:define>
+
+</ui:composition>

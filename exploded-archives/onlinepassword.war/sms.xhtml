@@ -1,0 +1,116 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+	<ui:define name="head">
+	<script>
+	jQuery(document).ready(
+    		function(){
+        		jQuery('#disapear').animate({opacity: 4.0}, 4000).hide('slow');
+    		});
+
+	</script>
+	</ui:define>
+	
+	<ui:define name="menu">
+		<div id="sign_in">
+			<div id="logged_in">
+				<h:outputText value="Hi, #{authenticator.user.fullname}"/>
+			</div>
+			<div id="logged_in_buttons">
+				<a href="" style="cursor: pointer;"><h:graphicImage value="/img/logout2.png"/></a> 
+				<a href="" style="cursor: pointer;"><h:graphicImage value="/img/settings.png"/></a>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="body">
+		<div id="main_buttons">
+			<h:form>
+       <h:graphicImage value="img/manager.png" style="cursor:pointer;" onmouseover="jQuery(this).attr('src','img/manager_over.png');"
+											   onmouseout="jQuery(this).attr('src','img/manager.png');">
+	   		<a4j:support event="onclick" action="#{authenticator.moveToPasswords()}" ajaxSingle="true"/>
+	   </h:graphicImage>
+	   <div style="height: 10px;"></div>
+     <h:graphicImage value="img/history.png" style="cursor:pointer;" onmouseover="jQuery(this).attr('src','img/history_over.png');"
+											   onmouseout="jQuery(this).attr('src','img/history.png');">
+	   <a4j:support event="onclick" action="#{authenticator.moveToHistory()}" ajaxSingle="true"  />
+	   </h:graphicImage>
+	   <div style="height: 10px;"></div>
+       <h:graphicImage value="img/sms_state.png" style="cursor:pointer;">
+	   <a4j:support event="onclick" ajaxSingle="true"  />
+	   </h:graphicImage>
+	   </h:form></div>
+		<div id="contentForSMS">
+			<s:div id="left_side">
+				<div id="newpass"></div>
+			</s:div>
+			<s:div id="right_side">
+		       <div id="top_con"></div>
+				<div id="mid_con">
+				<h:form id="notForm">
+				
+                              
+				<a4j:outputPanel id="sms">
+				   <div style="margin-left:100px;">
+				   <h:panelGrid columns="2">
+				   	<h:panelGrid columns="1" style="margin-top:60px;">
+				        <h:panelGrid columns='1' rendered="#{authenticator.successfullTransaction != false}">
+				        	<div id="disapear" style="font-family: 'Trebuchet MS'; font-size:18px; color:red;">
+				        		Successfully applied changes.
+				        	</div>
+				        </h:panelGrid>
+				   	<rich:panelBar width="450px" height="220px" style="font-size:30px;">
+    	        		<rich:panelBarItem label="Passwords Expiry SMS">
+    	        	       <div style="text-align:justify; font-family: 'Trebuchet MS'; font-size:18px; color:black;">By applying this feature, you will be always notified about your passwords expiration dates. 
+    	        	       The notification will be sent to you by SMS to your mobile phone. With this great feature,
+    	        	       you always will be aware of changing passwords in your accounts at time.</div> 
+    	        	       <h:panelGrid columns="2" style="margin-top:10px;">
+    	        			<h:outputText value="Password Expiry SMS: " style="font-size:20px; color: #576210; font-family:'Trebuchet MS'; float:left;"/>
+    	        			<h:selectBooleanCheckbox value="#{authenticator.user.expiryNotify}" style="margin-left:190px; font-size:24px; color: #576210; font-family:'Trebuchet MS'; "/>
+    	        		</h:panelGrid>
+    	        		</rich:panelBarItem>
+    	        		<rich:panelBarItem label="Login and Logout SMS">
+    	        			 <div style="text-align:justify; font-family: 'Trebuchet MS'; font-size:18px; color:black;">By applying this feature, you will be always notified of your login and logout time and date. 
+    	        	       The notification will be sent to you by SMS to your mobile phone. With this great feature,
+    	        	       you always will be aware of someone to login to your account and steal your passwords.</div> 
+    	        	       <h:panelGrid columns="2" style="margin-top:10px;">
+    	        			<h:outputText value="Login/Logout SMS: " style="font-size:20px;color: #576210; font-family:'Trebuchet MS'; float:left;"/>
+    	        			<h:selectBooleanCheckbox value="#{authenticator.user.loginNotify}" style="margin-left:220px; font-size:24px; color:grey; font-family:'Trebuchet MS'; float:right; "/>
+    	        		</h:panelGrid>
+    	        		</rich:panelBarItem>
+    	        	</rich:panelBar>
+    	        	<a4j:commandButton action="#{authenticator.updateUser()}" value="Apply Changes" style="float:right; height:30px;" reRender="sms" oncomplete="jQuery('#disapear').animate({opacity: 4.0}, 4000).hide('slow');"/>
+				   	</h:panelGrid>
+			
+    	        	
+				      <s:div id="sms_logo" style="float:right; margin-top:30px;">
+				      <h:panelGrid columns="1">
+				      <h:graphicImage value="img/phone.png" style="float:right;"/>
+				   	   <h:outputText value="Phone Number:" style="font-size:24px; color:grey; margin-left:50px; font-family:'Trebuchet MS';" />
+				   		<h:inputText value="#{authenticator.user.number}" style="font-size:24px; width:190px; margin-left:70px; font-family:'Trebuchet MS'"/>
+				   		
+				      </h:panelGrid>
+				   		
+				   </s:div>
+				   </h:panelGrid>	
+    	        	</div>
+    	        	</a4j:outputPanel>
+    	        	</h:form>
+				</div>
+				
+				<div id="btm_con"></div>
+			</s:div>
+			<!-- Right Side -->
+	</div>
+		<!-- Content -->
+
+	</ui:define>
+
+</ui:composition>

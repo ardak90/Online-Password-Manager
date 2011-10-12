@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:a="http://richfaces.org/a4j"
+   xmlns:s="http://jboss.com/products/seam/taglib"
+   contentType="text/html">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <title>OnPass Manager</title>
+      <link rel="shortcut icon" href="/img/urlicon.ico"/>
+      <a:loadStyle src="resource:///stylesheet/theme.xcss"/>
+      <a:loadStyle src="/stylesheet/theme.css"/>
+      <a:loadScript src="/scripts/ZeroClipboard.js"/>
+      <ui:insert name="head"/>
+      <script>
+
+      </script>
+   </head>
+   <body>
+     <div id="mask"></div>
+      <div id = "top_menu">
+         <div id = "logo"><h:graphicImage value="/img/op2.png" /></div>
+      <ui:insert name="menu" />
+      </div>
+      <div class="body">
+
+         <ui:insert name="body"/>
+      </div>
+      <div style="height: 100px;"></div> 
+      <div class="footer">
+         <p>Made by <a href="http://seamframework.org"> Ardak Shaimerdenov TP018442</a></p>
+         <p>University College of Technology and Innovation</p>
+      </div>
+   </body>
+</html>
+</f:view>

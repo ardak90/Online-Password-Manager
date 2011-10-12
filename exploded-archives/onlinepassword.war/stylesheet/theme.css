@@ -1,0 +1,595 @@
+html {
+	overflow-y: scroll;
+}
+
+body {
+	font-size: 12px;
+	margin: 0px;
+}
+
+a img {
+	border: none;
+}
+
+h1 {
+	font-size: 1.6em;
+	margin-top: 0;
+}
+
+input[type=submit],input[type=button] {
+	font-size: 11px;
+	margin: 5px 5px 5px 0;
+	cursor: pointer;
+}
+
+input[type=text],input[type=password],textarea {
+	padding-left: 1px;
+}
+
+select {
+	font-size: 13px;
+}
+
+.tableControl,.actionButtons {
+	width: 100%;
+}
+
+.tableControl a {
+	padding-left: 10px;
+}
+
+.tableControl {
+	text-align: right;
+}
+
+.footer {
+	position: relative;
+	text-align: center;
+	font-size: 11px;
+}
+
+.rich-table {
+	width: 100%;
+	border-width: 0px;
+}
+
+.rich-table-cell {
+	border-width: 0px;
+}
+
+.body {
+	padding: 30px;
+	position: relative;
+}
+
+.message {
+	padding: 5px;
+	list-style: none;
+	border: 0;
+	background: none;
+	padding: 0;
+	color: #000000;
+	margin: 5px 0 8px 0;
+	font-size: 12px;
+}
+
+.message li {
+	background: no-repeat left center;
+	padding-top: 1px;
+	padding-left: 20px;
+	margin-left: 3px;
+}
+
+.message li.infomsg {
+	background-image: url(../img/msginfo.png);
+}
+
+.message li.errormsg {
+	background-image: url(../img/msgerror.png);
+}
+
+.message li.warnmsg {
+	background-image: url(../img/msgwarn.png);
+}
+
+.name {
+	vertical-align: top;
+	font-weight: bold;
+	width: 115px;
+	float: left;
+	padding: 5px;
+	margin-top: 3px;
+	clear: left;
+}
+
+.value {
+	float: left;
+	padding: 5px;
+}
+
+.error {
+	float: left;
+	padding: 5px;
+}
+
+.errors {
+	color: #c2c1c1;;
+	vertical-align: text-bottom;
+}
+
+img.errors {
+	padding-right: 5px;
+}
+
+.errors input,.errors textarea,.errors select {
+	border: 1px solid red !important;
+}
+
+.required {
+	color: red;
+	padding-left: 2px;
+}
+
+.rich-stglpanel-body {
+	overflow: auto;
+}
+
+/* the specificity here is necessary to override the defaults */
+/*
+.rich-panel .rich-panel-header,
+.rich-stglpanel .rich-stglpanel-header {
+	padding: 2px 3px;
+}*/
+.rich-panel input[type=submit],.rich-panel input[type=button],.rich-tabpanel input[type=submit],.rich-tabpanel input[type=button]
+	{
+	margin-bottom: 0;
+}
+
+.tableControl input[type=submit],.tableControl input[type=button],.tableControl select
+	{
+	margin: 5px 0 5px 5px;
+}
+
+/* I don't know why this is necessary, but the select is off by a pixel on the top and is padding too much on the left */
+.tableControl select {
+	margin-left: 2px;
+	position: relative;
+	top: 1px;
+}
+
+.actionButtons {
+	padding-left: 1px;
+}
+
+.actionButtons select {
+	margin: 5px 5px 5px 0;
+	vertical-align: bottom;
+}
+
+.rich-toolbar-item a {
+	text-decoration: none;
+}
+
+.rich-toolbar-item a:hover,.rich-ddmenu-label-select {
+	text-decoration: underline;
+}
+
+.rich-toolbar-item .rich-menu-item a:hover {
+	text-decoration: none;
+}
+
+.rich-datalist {
+	list-style: square;
+	margin: 6px 0 1px 0;
+	padding-left: 18px;
+}
+
+.rich-list-item {
+	padding-bottom: 4px;
+}
+
+div.info {
+	font-size: 1.2em;
+}
+
+ul.bullets {
+	list-style: square;
+}
+
+ul.bullets li {
+	padding-bottom: 2px;
+}
+
+td.action {
+	text-align: center;
+	width: 8em;
+	white-space: nowrap;
+}
+
+td.action a {
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+table.radio {
+	border: 0;
+}
+
+table.radio td {
+	padding: 0 2px;
+}
+
+table.radio input[type=radio] {
+	vertical-align: bottom;
+}
+
+#login {
+	background-image: url(../img/online3.png);
+	position: relative;
+	width: 870px;
+	height: 650px;
+	margin-left: 150px;
+	font-family: "Trebuchet MS";
+	font-size: medium;
+	font-style: normal;
+	color: #c2c1c1;
+}
+
+#loginbox {
+	background-image: url(../img/loginbox.png);
+	position: absolute;
+	width: 370px;
+	height: auto;
+	margin-left: 480px;
+	margin-top: 35px;
+}
+
+#loginbox_content {
+	position: relative;
+	margin-left: 30px;
+	margin-top: 10px;
+}
+
+#top_menu {
+	background-image: url(../img/bg.png);
+	width: 100%;
+	height: 75px;
+	position: static;
+}
+
+#logo {
+	position: absolute;
+	margin-top: 8px;
+}
+
+.sd {
+	background-image: url(../img/but.png);
+}
+
+#sign_in {
+	margin-left: 930px;
+	background-image: url(../img/bg.png);
+}
+
+#logged_in {
+	position: absolute;
+	margin-left: 25px;
+	margin-top: 25px;
+	color: #576210;
+	font-size: 14px;
+	font-family: "Trebuchet MS";
+}
+
+#logged_in_buttons {
+	margin-left: 230px;
+	position: absolute;
+	margin-top: 10px;
+}
+
+#error_box {
+	color: black;
+}
+
+#content {
+	margin-top: -10px;
+	margin-left: -100px;
+	height: 500px;
+}
+#contentForSMS {
+	margin-top: 20px;
+	margin-left: -100px;
+	height: 500px;
+}
+
+#left_side {
+	float: left;
+	background-image: url(../img/menu.png);
+	height: 430px;
+	width: 450px;
+	position: relative;
+}
+
+#FirstPassword {
+	background-image: url(../img/firstpassword2.png);
+	position: relative;
+	margin-left: 320px;
+	height: 650px;
+	width: 700px;
+	font-family: 'Trebuchet MS';
+	font-size: 18px;
+	color: grey;
+}
+
+#firstPassword {
+	margin-left: 80px;
+}
+
+#firstPss {
+	margin-left: 440px;
+	margin-top: 150px;
+	cursor: pointer;
+}
+
+#right_side {
+	position: relative;
+	float: left;
+	margin-left: -180px;
+	width: 906px;
+	margin-top: -15px;
+}
+
+#top_con {
+	background-image: url(../img/top.png);
+	position: relative;
+	height: 15px;
+}
+
+#mid_con {
+	background-image: url(../img/mid.png);
+	position: relative;
+}
+
+#btm_con {
+	background-image: url(../img/btm2.png);
+	position: relative;
+	height: 15px;
+}
+
+#passwords {
+	position: relative;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+#passwords_overflood {
+	position: relative;
+	margin-left: 30px;
+	margin-right: 30px;
+	overflow-x:hidden;
+	height: 568px;
+}
+
+.password {
+	margin-top:5px;
+	height: 130px;
+	width: 400px;
+	background-image: url(../img/pass_content3.png);
+}
+
+.password #ps_header {
+	color: #2B3E42;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.password #ps_header a {
+	color: #2B3E42;
+	text-decoration: none;
+}
+
+.password #ps_header a:hover {
+	color: #50a3f7;
+	text-decoration: none;
+}
+
+#ps_main {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#column1 {
+	margin-top: 4px;
+	border: 1px ridge #2B3E42;
+	position: relative;
+	float: left;
+	height: 70px;
+	width: 70px;
+}
+
+#column23 {
+	float: left;
+	margin-left: 10px;
+}
+
+#column3 {
+	position: relative;
+	float: right;
+	margin-top: 20px;
+	margin-right: 12px;
+}
+
+#days {
+	font-size: 40px;
+}
+
+#days_red {
+	font-size: 40px;
+	color: red;
+}
+
+#ddays {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#ddays_red {
+	font-size: 16px;
+	font-weight: bold;
+	color: red;
+}
+
+.body {
+	position: relative;
+}
+
+#newpass {
+	margin-left: 210px;
+	margin-top: 70px;
+}
+
+#mask {
+	position: absolute;
+	z-index: 9000;
+	background-color: #000;
+	display: none;
+}
+
+#boxes .window {
+	position: absolute;
+	width: 440px;
+	height: 200px;
+	display: none;
+	z-index: 9999;
+	padding: 0px;
+}
+
+/* Customize your modal window here, you can add background image too */
+#boxes #dialog {
+	width: auto;
+	height: auto;
+	background-color: #f3f2f2;
+}
+
+#dialog_header {
+	background-image: url(../img/bg.png);
+	height: 10px;
+	width: 100%;
+	float: left;
+}
+
+#show_hide {
+	position: absolute;
+	background-image: url(../img/hidden.png);
+	left: 0px;
+	top: 0px;
+	width: 153px;
+	height: 33px;
+	z-index: 99
+}
+
+#delup_but {
+	margin-top: 19px;
+	margin-left: -80px;
+}
+
+.holder {
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	top: 13px;
+	left: 1075px;
+	white-space: nowrap;
+	cursor: text;
+	color: #8AB08A;
+	font-family: 'Trebuchet MS';
+	font-size: 15px;
+}
+
+.holder2 {
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	top: 13px;
+	left: 945px;
+	white-space: nowrap;
+	cursor: text;
+	color: #8AB08A;
+	font-family: 'Trebuchet MS';
+	font-size: 15px;
+}
+
+.register_input {
+	width: 160px;
+	height: 22px;
+	color: #425613;
+	font-family: 'Trebuchet MS';
+	font-size: 14px;
+}
+
+.prop {
+	
+}
+#status{
+	color:#ccf3aa; 
+	margin-left: 2px; 
+	margin-top:10px;
+}
+#status_red{
+	color:red; 
+	margin-left: 2px; 
+	margin-top:10px;
+}
+#main_buttons{
+    position: absolute;
+    margin-left:1100px;
+    margin-top:10px;
+}
+#top_con2 {
+	background-image: url(../img/histtop.png);
+	position: relative;
+	height: 15px;
+}
+
+#mid_con2 {
+	background-image: url(../img/histmid.png);
+	position: relative;
+}
+
+#btm_con2 {
+	background-image: url(../img/histbtm.png);
+	position: relative;
+	height: 15px;
+}
+#history{
+position:relative;
+width:780px;
+height:36px;
+float:left;
+background-image: url(../img/log_hist2.png);
+}
+#histories{
+position: relative;
+margin-left:50px;
+height:auto;
+
+}
+#histories_overflood{
+position: relative;
+margin-left:50px;
+overflow-x:hidden;
+height: 558px;
+}
+#uploadForm{
+	margin-left:350px;
+background-image: url(../img/loginbox.png);
+width:450px;
+height: auto;
+}
+#invisiblePanel{
+z-index: 100;
+position: absolute;
+right:0;
+top:0px;
+width:auto;
+height:auto;
+background-color: #c1c1c1;
+}

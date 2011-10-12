@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <title>Twitter</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8" />
+
+  <meta name="description" content="Instantly connect to what's most important to you. Follow your friends, experts, favorite celebrities, and breaking news." />
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+  
+  
+  document.domain = 'twitter.com';
+
+  // this will be copied to twttr.appStartTime once our JS has started up
+  document.startTime = new Date().getTime();
+  var twttr = {};
+  twttr.versionName = 'phoenix';
+
+  if (!window.console) {
+    (function() {
+      var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml",
+      "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+      window.console = {};
+      for (var i = 0; i < names.length; ++i) {
+        window.console[names[i]] = function() {};
+      }
+    }());
+  }
+
+</script>
+
+
+
+<script type="text/javascript">(function(){window.setTimeout=window.setTimeout;window.setInterval=window.setInterval;window.WATCH=function(label,block){if(typeof block==="undefined"){block=label;label=undefined}if(typeof label==="string"){WATCH._didExecute[label]=true}WATCH._attempt(this,block)};WATCH._didExecute={};WATCH._reportCount=0;WATCH._reportLimit=25;WATCH._reportInterval=60*1000;WATCH._active=false;WATCH.activate=function(setting){if(typeof setting==="undefined"){setting=true}WATCH._active=setting;extend(WATCH,WATCH._active?WATCH.actives:WATCH.inactives)};WATCH.actives={};WATCH.inactives={};var extend=function(destination,source){for(var key in source){destination[key]=source[key]}};var noop=function(){};WATCH._attempt=function(that,block){if(arguments.length<2){block=that;that=window}if(WATCH._active){try{block.apply(that)}catch(error){WATCH._triggerError(error)}}else{block.apply(that)}};WATCH.inactives.end=noop;WATCH.actives.end=function(label){if(typeof label==="undefined"){throw new Error("WATCH.end() requires a label")}if(WATCH._didExecute[label]){WATCH._didExecute[label]=false}else{if(WATCH._active){WATCH._triggerError(new Error('WATCH.end("'+label+'") called without successful call to WATCH("'+label+'", fn(){...}) - a SyntaxError probably just happened'))}}WATCH._didExecute[label]=false};WATCH.inactives.callback=function(that,callback){return typeof callback==="undefined"?that:callback};WATCH.actives.callback=function(that,callback){if(arguments.length===1){callback=that;that=this}if(typeof callback==="string"){callback=(function(stringVersion){return function(){eval(stringVersion)}}(callback))}var watchedCallback=function(){var that=this,args=arguments,result;WATCH._attempt(function(){result=callback.apply(that,args)});return result};watchedCallback.isWatched=true;return watchedCallback};WATCH._onErrorCallbacks={};WATCH.inactives._addOnError=noop;WATCH.actives._addOnError=function(callback){var unique=WATCH._unique();WATCH._onErrorCallbacks[unique]=callback;return unique};WATCH.inactives._removeOnError=noop;WATCH.actives._removeOnError=function(id){delete WATCH._onErrorCallbacks[id]};WATCH._lastUnique=-1;WATCH._unique=function(){return ++WATCH._lastUnique};WATCH.inactives.jQuery=noop;WATCH.actives.jQuery=function(){WATCH._originalJQueryEventAdd=WATCH._originalJQueryEventAdd||jQuery.event.add;jQuery.event.add=function(){var newArgs=Array.prototype.slice.call(arguments);if(typeof newArgs[2]==="function"){newArgs[2]=WATCH.callback(newArgs[2])}else{if(newArgs&&typeof newArgs[2]==="object"&&newArgs[2].handler){newArgs[2].handler=WATCH.callback(newArgs[2].handler)}}return WATCH._originalJQueryEventAdd.apply(this,newArgs)};WATCH._originalJQueryAjax=WATCH._originalJQueryAjax||jQuery.ajax;jQuery.ajax=function(options){jQuery.each(["complete","error","success"],function(which,key){if(!options[key]){return }options[key]=WATCH.callback(options[key])});return WATCH._originalJQueryAjax.apply(this,arguments)}};WATCH.inactives.undoJQuery=noop;WATCH.actives.undoJQuery=function(){jQuery.event.add=WATCH._originalJQueryEventAdd;jQuery.ajax=WATCH._originalJQueryAjax};WATCH._previousErrors={};var escapeDoubleQuotes=function(string){return string.toString().replace('"','\\"')};var stringifyLite=function(object){var result="{",hasProperty=false;for(var key in object){if(typeof object[key]==="undefined"||object[key]===null){continue}result+=(hasProperty?',"':'"')+escapeDoubleQuotes(key)+'":"'+escapeDoubleQuotes(object[key])+'"';hasProperty=true}return result+"}"};WATCH._scribeError=function(report){if(WATCH._previousErrors[report.error]&&(new Date())-WATCH._previousErrors[report.error]<WATCH._reportInterval){return false}if(WATCH.reportLimit<=WATCH.reportCount){return }WATCH.reportCount++;if(!document.location.hostname.match(/(^(www|api)\.)?twitter\.com$/)){return }WATCH._previousErrors[report.error]=new Date();report.product_name="webclient";report.type="js_error";report.url=window.location.href;report.event_name="test";var isProduction=document.location.hostname.match(/(^(www|api|staging\d+.local)\.)twitter\.com$/)!=null;var scribeHost=isProduction?"scribe.twitter.com":window.location.host;var scribeUrl=(window.location.protocol.match(/s\:$/)?"https":"http")+"://"+scribeHost;scribeUrl+=isProduction?"/":"/scribe";scribeUrl+="?category=client_watch_error&log="+encodeURIComponent(stringifyLite(report))+"&ts="+(new Date()).getTime();(new Image()).src=scribeUrl};WATCH._triggerError=function(error){var reraise=true;var report={error:error};for(var key in WATCH._onErrorCallbacks){try{if(WATCH._onErrorCallbacks[key](report)===false){reraise=false}}catch(callbackError){report.callbackFailure=true}}WATCH._scribeError(report);if(reraise){throw error}};WATCH.inactives.natives=noop;WATCH.actives.natives=function(){window.setInterval=WATCH._watchedSetInterval;window.setTimeout=WATCH._watchedSetTimeout};WATCH.inactives.undoNatives=noop;WATCH.actives.undoNatives=function(){window.setInterval=WATCH._originalSetInterval;window.setTimeout=WATCH._originalSetTimeout};WATCH._originalSetInterval=window.setInterval;WATCH._originalSetTimeout=window.setTimeout;WATCH._watchedSetInterval=function(callback,timeout){var setInterval=WATCH._originalSetInterval;return setInterval(WATCH.callback(callback),timeout)};WATCH._watchedSetTimeout=function(callback,timeout){var setTimeout=WATCH._originalSetTimeout;return setTimeout(WATCH.callback(callback),timeout)};WATCH.activate(false)}());</script>
+<script type="text/javascript">
+  
+</script>
+
+
+
+  <script>
+function bust () {
+  document.write = "";
+  window.top.location = window.self.location;
+  setTimeout(function() {
+    document.body.innerHTML = '';
+    }, 0);
+  window.self.onload = function(evt) {
+    document.body.innerHTML = '';
+  };
+}
+if (window.top !== window.self) { // are you trying to put self in an iframe?
+  try {
+    if (window.top.location.host) { // this is illegal to access unless you share a non-spoofable document domain
+      // fun times
+    } else {
+      bust(); // chrome executes this
+    }
+  } catch (ex) {
+    bust(); // everyone executes this
+  }
+}
+</script>
+
+
+
+
+
+  <link href="/phoenix/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+    
+    
+      
+      
+        <link rel="stylesheet" href="http://a2.twimg.com/a/1315857904/phoenix/css/phoenix_core_logged_out.bundle.css" type="text/css" media="screen" />
+      
+
+      
+
+      
+        <noscript>
+          
+            <meta http-equiv=refresh content="0; URL=/?_twitter_noscript=1" />
+          
+        </noscript>
+      
+    
+
+    
+
+    
+    <script>var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-30775-6"]);_gaq.push(["_trackPageview"],["_setDomainName","twitter.com"]);(function(){var B=document.createElement("script");B.type="text/javascript";B.async=true;B.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var A=document.getElementsByTagName("script")[0];A.parentNode.insertBefore(B,A)}());twttr.trackPageView=function(A){var B=["_trackPageview"];if(A){B.push(A)}_gaq.push(B)};</script>
+  </head>
+
+
+  <body class="user-style-twttr   loading-body   logged-out ">
+    <div id="doc">
+      <div id="top-stuff">
+        <div id="banners" style="clear:both;"></div>
+        <div id="top-bar-outer">
+          <div id="top-bar-bg"></div>
+          <div id="top-bar">
+            <div class="top-bar-inside">
+
+              <div class="static-links">
+  <div id="logo">
+    <a href="/">Twitter</a>
+  </div>
+  <form id="search-form" action="/search" method="GET">
+    <span class="glass"><i></i></span>
+    <input value="" placeholder="Search" name="q" id="search-query" type="text" />
+  </form>
+
+  <div id="global-nav">
+    <ul class="js-global-actions">
+      
+    </ul>
+  </div>
+  <div id="sections"></div>
+</div>
+<div class="active-links">
+  
+  
+    <div id="session">
+      <a id="signin-link" href="/login">
+        <em>Have an account?</em>
+
+        <strong>Sign in</strong><i></i>
+      </a>
+      <a id="signup-link" href="https://twitter.com/signup?context=login">
+        <em>New to Twitter?</em>
+        <strong>Join Today&#32;&raquo;</strong>
+      </a>
+      <div id="signin-dropdown" class="dropdown dark">
+
+        <form action="https://twitter.com/sessions?phx=1" class="signin" method="post">
+  <fieldset class="textbox">
+  <label class="username">
+    <span>Username or email</span>
+    <input type="text" value="" name="session[username_or_email]" autocomplete="on" />
+  </label>
+  <label class="password">
+    <span>Password</span>
+
+    <input type="password" value="" name="session[password]" />
+  </label>
+</fieldset>
+  <fieldset class="subchck">
+  <label class="remember">
+    <input type="checkbox" value="1" name="remember_me" />
+    <span>Remember me</span>
+  </label>
+  <button type="submit" class="submit button">Sign in</button>
+
+</fieldset>
+
+
+
+<input type="hidden" name="redirect_after_login" value="" />
+
+  <p>
+    <a class="forgot" href="/account/resend_password">Forgot password?</a><br />
+    <a class="mobile" href="/account/complete">Already using Twitter via SMS?</a>
+  </p>
+</form>
+
+      </div>
+    </div>
+  
+</div>
+
+            </div>
+          </div>
+          <div id="message-drawer"></div>
+        </div>
+        <div id="under-bar"></div>
+
+      </div>
+
+      
+      <div id="page-outer">
+        
+          
+            <div id="front-container">
+              <div class="leftside">
+  <h1><span>Twitter</span></h1>
+  <h2>Follow your interests</h2>
+  <p>Instant updates from your friends, industry experts, favorite celebrities, and what&#8217;s happening around the world.</p>
+
+</div>
+
+
+
+<div class="rightside">
+
+  <div class="gradient"></div>
+
+  <div class="front-signin">
+    <form action="https://twitter.com/sessions?phx=1" class="signin" method="post">
+      <fieldset class="textbox">
+        <div class="holding username">
+
+          <input type="text" value="" name="session[username_or_email]" title="Username or email" autocomplete="on" />
+          <span class="holder">Username</span>
+        </div>
+        <div class="holding password">
+          <input type="password" value="" name="session[password]" title="Password" />
+          <span class="holder">Password</span>
+        </div>
+      </fieldset>
+
+      <fieldset class="subchck">
+  <label class="remember">
+    <input type="checkbox" value="1" name="remember_me" />
+    <span>Remember me</span>
+  </label>
+  <button type="submit" class="submit button">Sign in</button>
+</fieldset>
+
+
+<input type="hidden" name="redirect_after_login" value="" />
+
+      <p>
+        <a class="forgot" href="/account/resend_password">Forgot it?</a>
+      </p>
+    </form>
+  </div>
+
+
+<div class="front-signup">
+
+  <h3>New to Twitter? <em>Join today!</em></h3>
+  <form action="https://twitter.com/signup" class="signup signup-btn" method="post">
+  <div class="holding name">
+    <input type="text" autocomplete="off" value="" name="user[name]" maxlength="20"/>
+    <span class="holder">Full name</span>
+  </div>
+  <div class="holding email">
+
+    <input type="text" autocomplete="off" value="" name="user[email]"/>
+    <span class="holder">Email</span>
+  </div>
+  <div class="holding password">
+    <input type="password" value="" name="user[user_password]"/>
+    <span class="holder">Password</span>
+  </div>
+  
+  <input type="hidden" value="front" name="context" />
+
+  <input type="submit" class="promotional submit button" value="Sign up" />
+  
+  
+</form>
+</div>
+
+
+<div class="front-signup claim-flow">
+  <h3>New to Twitter? <em>Get started building your timeline.</em></h3>
+  <form action="https://twitter.com/signup" class="signup" method="post">
+    <div class="holding email">
+      <input type="text" autocomplete="off" value="" name="user[email]"/>
+
+      <span class="holder">Enter email address</span>
+    </div>
+    <a href="#" class="promotional submit button"><em>Get Started</em></a>
+  </form>
+</div>
+
+
+
+  
+<script type="text/javascript" id="banned_passwords">
+  twttr.BANNED_PASSWORDS = [];
+  (function() {
+    var r = ["000000","111111","11111111","112233","121212","123123","123456","1234567","12345678","123456789","131313","232323","654321","666666","696969","777777","7777777","8675309","987654","nnnnnn","nop123","nop123","nopqrs","noteglh","npprff","npprff14","npgvba","nyoreg","nyoregb","nyrkvf","nyrwnaqen","nyrwnaqeb","nznaqn","nzngrhe","nzrevpn","naqern","naqerj","natryn","natryf","navzny","nagubal","ncbyyb","nccyrf","nefrany","neguhe","nfqstu","nfqstu","nfuyrl","nffubyr","nhthfg","nhfgva","onqobl","onvyrl","onanan","onearl","onfronyy","ongzna","orngevm","ornire","ornivf","ovtpbpx","ovtqnqql","ovtqvpx","ovtqbt","ovtgvgf","oveqvr","ovgpurf","ovgrzr","oynmre","oybaqr","oybaqrf","oybjwbo","oybjzr","obaq007","obavgn","obaavr","obbobb","obbtre","obbzre","obfgba","oenaqba","oenaql","oenirf","oenmvy","oebapb","oebapbf","ohyyqbt","ohfgre","ohggre","ohggurnq","pnyiva","pnzneb","pnzreba","pnanqn","pncgnva","pneybf","pnegre","pnfcre","puneyrf","puneyvr","purrfr","puryfrn","purfgre","puvpntb","puvpxra","pbpnpbyn","pbssrr","pbyyrtr","pbzcnd","pbzchgre","pbafhzre","pbbxvr","pbbcre","pbeirggr","pbjobl","pbjoblf","pelfgny","phzzvat","phzfubg","qnxbgn","qnyynf","qnavry","qnavryyr","qroovr","qraavf","qvnoyb","qvnzbaq","qbpgbe","qbttvr","qbycuva","qbycuvaf","qbanyq","qentba","qernzf","qevire","rntyr1","rntyrf","rqjneq","rvafgrva","rebgvp","rfgeryyn","rkgerzr","snypba","sraqre","sreenev","sveroveq","svfuvat","sybevqn","sybjre","sylref","sbbgonyy","sberire","serqql","serrqbz","shpxrq","shpxre","shpxvat","shpxzr","shpxlbh","tnaqnys","tngrjnl","tngbef","trzvav","trbetr","tvnagf","tvatre","tvmzbqb","tbyqra","tbysre","tbeqba","tertbel","thvgne","thaare","unzzre","unaanu","uneqpber","uneyrl","urngure","uryczr","uragnv","ubpxrl","ubbgref","ubearl","ubgqbt","uhagre","uhagvat","vprzna","vybirlbh","vagrearg","vjnagh","wnpxvr","wnpxfba","wnthne","wnfzvar","wnfcre","wraavsre","wrerzl","wrffvpn","wbuaal","wbuafba","wbeqna","wbfrcu","wbfuhn","whavbe","whfgva","xvyyre","xavtug","ynqvrf","ynxref","ynhera","yrngure","yrtraq","yrgzrva","yrgzrva","yvggyr","ybaqba","ybiref","znqqbt","znqvfba","znttvr","zntahz","znevar","znevcbfn","zneyobeb","znegva","zneiva","znfgre","zngevk","znggurj","znirevpx","znkjryy","zryvffn","zrzore","zreprqrf","zreyva","zvpunry","zvpuryyr","zvpxrl","zvqavtug","zvyyre","zvfgerff","zbavpn","zbaxrl","zbaxrl","zbafgre","zbetna","zbgure","zbhagnva","zhssva","zhecul","zhfgnat","anxrq","anfpne","anguna","anhtugl","app1701","arjlbex","avpubynf","avpbyr","avccyr","avccyrf","byvire","benatr","cnpxref","cnagure","cnagvrf","cnexre","cnffjbeq","cnffjbeq","cnffjbeq1","cnffjbeq12","cnffjbeq123","cngevpx","crnpurf","crnahg","crccre","cunagbz","cubravk","cynlre","cyrnfr","cbbxvr","cbefpur","cevapr","cevaprff","cevingr","checyr","chffvrf","dnmjfk","djregl","djreglhv","enoovg","enpury","enpvat","envqref","envaobj","enatre","enatref","erorppn","erqfxvaf","erqfbk","erqjvatf","evpuneq","eboreg","eboregb","ebpxrg","ebfrohq","ehaare","ehfu2112","ehffvn","fnznagun","fnzzl","fnzfba","fnaqen","fnghea","fpbbol","fpbbgre","fpbecvb","fpbecvba","fronfgvna","frperg","frkfrk","funqbj","funaaba","funirq","fvreen","fvyire","fxvccl","fynlre","fzbxrl","fabbcl","fbppre","fbcuvr","fcnaxl","fcnexl","fcvqre","fdhveg","fevavinf","fgnegerx","fgnejnef","fgrryref","fgrira","fgvpxl","fghcvq","fhpprff","fhpxvg","fhzzre","fhafuvar","fhcrezna","fhesre","fjvzzvat","flqarl","grdhvreb","gnlybe","graavf","grerfn","grfgre","grfgvat","gurzna","gubznf","guhaqre","guk1138","gvssnal","gvtref","gvttre","gbzpng","gbctha","gblbgn","genivf","gebhoyr","gehfgab1","ghpxre","ghegyr","gjvggre","havgrq","intvan","ivpgbe","ivpgbevn","ivxvat","ibbqbb","iblntre","jnygre","jneevbe","jrypbzr","jungrire","jvyyvnz","jvyyvr","jvyfba","jvaare","jvafgba","jvagre","jvmneq","knivre","kkkkkk","kkkkkkkk","lnznun","lnaxrr","lnaxrrf","lryybj","mkpioa","mkpioaz","mmmmmm"];
+    for (var i = r.length - 1; i >= 0; i--){
+      twttr.BANNED_PASSWORDS.push(r[i].replace(/[a-z]/gi, function(l){
+          var c = l.charCodeAt(0), n = c + 13;
+          if((c<=90 && n>90) || (n>122)) { n -= 26; }
+          return String.fromCharCode(n);
+      }));
+    };
+  })();
+</script>
+
+  <div id="front-signup-inline">
+    <h3>You&#8217;re almost there&hellip;</h3>
+<a class="dismiss" href="#">&times;</a>
+
+<div class="step2-content">
+  <form method="POST" action="https://twitter.com/account/create" class="signup">
+    <input type="hidden" value="" name="authenticity_token" />
+    <input type="hidden" name="user[discoverable_by_email]" value="1" />
+    <input type="hidden" name="user[send_email_newsletter]" value="1" />
+
+    <p class="wepicked">
+      <em>We&#8217;ve picked a username for you.</em><br/>You can change it now, or anytime later.
+    </p>
+
+    <div class="holding username">
+      <input type="text" autocomplete="off" value="" name="user[screen_name]" maxlength="15" aria-required="true" />
+      <span class="holder">Username</span>
+      <div class="suggestions">Other suggestions:&#32;<ul></ul></div>
+
+    </div>
+
+    <div class="tos">
+      <div class="scroller">
+  <p class="header">By clicking the button, you agree to the terms below:</p>
+  <div class="import">  </div>
+</div>
+
+      <p class="more-tos"><a href="/tos" target="_blank">Read in new window</a></p>
+
+    </div>
+
+    <div class="captcha-container">
+      <div class="holding captcha"></div> 
+      <div class="embed"></div>
+    </div>
+
+    <input type="submit" class="promotional submit button" value="Create my account" />
+
+  </form>
+</div>
+
+<p class="privacy">Others will be able to find you by name, username or email. Your email will not be shown publicly. You can change your privacy settings at any time.</p>
+  </div>
+  <div id="front-signup-inline-overlay" class="twttr-dialog-container-modal"></div>
+
+
+</div>
+
+
+
+
+
+
+  <div class="divider-bar"></div>
+
+
+<div class="bottompart no-front-sul">
+  <div class="footer inline-list">
+  <ul>
+    <li><a href="/about">About</a><span class="dot"> &middot;</span></li>
+    <li><a href="//support.twitter.com">Help</a><span class="dot"> &middot;</span></li>
+    <li><a href="http://blog.twitter.com">Blog</a><span class="dot"> &middot;</span></li>
+
+    
+      <li><a href="/download">Mobile</a><span class="dot"> &middot;</span></li>
+    
+
+    <li><a href="http://status.twitter.com">Status</a><span class="dot"> &middot;</span></li>
+
+    <li><a href="/jobs">Jobs</a><span class="dot"> &middot;</span></li>
+    <li><a href="/tos">Terms</a><span class="dot"> &middot;</span></li>
+
+    <li><a href="/privacy">Privacy</a><span class="dot"> &middot;</span></li>
+
+    
+
+    <li><a href="//business.twitter.com/advertise/start">Advertisers</a><span class="dot"> &middot;</span></li>
+    <li><a href="//business.twitter.com/">Businesses</a><span class="dot"> &middot;</span></li>
+    <li><a href="http://media.twitter.com">Media</a><span class="dot"> &middot;</span></li>
+
+    <li><a href="//dev.twitter.com">Developers</a><span class="dot"> &middot;</span></li>
+    <li><a href="/about/resources">Resources</a><span class="dot"> &middot;</span></li>
+    <li><span class="copyright">&copy; 2011 Twitter</span><li>
+  <ul>
+  
+</div>
+
+</div>
+
+            </div>
+          
+        
+
+        <div id="page-container" >
+          <div>
+            
+              
+            
+
+            
+
+            
+          </div>
+        </div>
+      </div>
+
+      <div id="message-notifications"></div>
+
+    </div>
+
+    <div id="flash-message-storage" style="display:none"></div>
+    <div id="flash-object-container"></div>
+
+    <div id="off-screen-preload">
+      <div class="content-fe-sprites"></div>
+    </div>
+
+    
+
+    
+
+<script type="text/javascript">WATCH('loadrunner', function() {
+    (function(context,document){var useInteractive=context.attachEvent&&!context.opera,scripts=document.getElementsByTagName("script"),uuid=0,scriptTag,scriptTemplate=document.createElement("script"),scriptsInProgress={},modulesInProgress={},loadedModule,currentScript,activeScripts={},oldUsing=context.using,oldProvide=context.provide,oldDefine=context.define,oldLoadrunner=context.loadrunner,pausedScripts={};for(var i=0,s;s=scripts[i];i++){if(s.src.match(/loadrunner\.js(\?|#|$)/)){scriptTag=s;break}}function aug(target){for(var i=1,o;o=arguments[i];i++){for(var key in o){target[key]=o[key]}}return target}function makeArray(o){return Array.prototype.slice.call(o)}var isArray=Array.isArray||function(obj){return obj.constructor==Array};function indexOf(arr,thing){for(var i=0,item;item=arr[i];i++){if(thing==item){return i}}return -1}function path(){var parts=makeArray(arguments),normalized=[];for(var i=0,len=parts.length;i<len;i++){if(parts[i].length>0){normalized.push(parts[i].replace(/\/$/,""))}}return normalized.join("/")}function pushObjPath(obj,path,newobj){var names=path.split("/"),cursor=obj;while(names.length>1){var name=names.shift();cursor=cursor[name]=cursor[name]||{}}cursor[names[0]]=newobj}function Dependency(){}Dependency.prototype.then=function(cb){var dep=this;if(!this.started){this.started=true;this.start()}if(this.completed){cb.apply(context,this.results)}else{this.callbacks=this.callbacks||[];this.callbacks.push(cb)}return this};Dependency.prototype.start=function(){};Dependency.prototype.complete=function(){if(!this.completed){this.results=makeArray(arguments);this.completed=true;if(this.callbacks){for(var i=0,cb;cb=this.callbacks[i];i++){cb.apply(context,this.results)}}}};function Script(path,force){if(path){this.id=this.path=this.resolvePath(path)}this.force=!!force}Script.loaded=[];Script.times={};Script.prototype=new Dependency;Script.prototype.resolvePath=function(path){return whichBundle(path)};Script.prototype.start=function(){var me=this,dep,module;if(module=modulesInProgress[this.id]){module.then(function(){me.complete()});return this}if(dep=scriptsInProgress[this.id]){dep.then(function(){me.loaded()})}else{if(!this.force&&indexOf(Script.loaded,this.id)>-1){this.loaded()}else{this.load()}}return this};Script.prototype.createScriptTag=function(){var me=this,paused;scriptsInProgress[this.id]=me;if(paused=pausedScripts[this.path]){me.then(function(){for(var i=0,d;d=paused[i];i++){d.complete.apply(d,arguments)}})}this.times={start:new Date()};var script=scriptTemplate.cloneNode(false);this.scriptId=script.id="LR"+ ++uuid;script.type="text/javascript";script.async=true;script.onerror=function(){throw new Error(me.path+" not loaded")};script.onreadystatechange=script.onload=function(e){e=context.event||e;if(e.type=="load"||indexOf(["loaded","complete"],this.readyState)>-1){this.onreadystatechange=null;me.loaded()}};script.src=this.path;currentScript=this;scripts[0].parentNode.insertBefore(script,scripts[0]);currentScript=null;activeScripts[script.id]=this};Script.prototype.queueScript=function(){pausedScripts[this.path]=pausedScripts[this.path]||[];pausedScripts[this.path].push(this)};Script.prototype.load=function(force){if(using.autoLoad||force){this.createScriptTag()}else{this.queueScript()}return this};Script.prototype.loaded=function(){this.complete()};Script.prototype.complete=function(){if(indexOf(Script.loaded,this.id)==-1){Script.loaded.push(this.id)}if(this.times){Script.times[this.id]=aug(this.times,{end:new Date()})}delete scriptsInProgress[this.id];Dependency.prototype.complete.apply(this,arguments)};function Module(id,body){this.id=id;this.body=body;if(typeof body=="undefined"){this.path=this.resolvePath(id)}}Module.exports={};Module.prototype=new Script;Module.prototype.resolvePath=function(id){return(whichBundle(id)!=id)?whichBundle(id):path(using.path,id+".js")};Module.prototype.start=function(){var exports,module,me=this,oldCurrent;if(this.body){this.execute()}else{if(exports=Module.exports[this.id]){this.exp(exports)}else{if(module=modulesInProgress[this.id]){module.then(function(exports){me.exp(exports)})}else{modulesInProgress[this.id]=this;this.load()}}}};Module.prototype.loaded=function(){var module,exports,me=this;if(!useInteractive){module=loadedModule;loadedModule=null;module.id=module.id||this.id;module.then(function(exports){me.exp(exports)})}else{if(exports=Module.exports[this.id]){this.exp(exports)}else{if(module=modulesInProgress[this.id]){module.then(function(exports){me.exp(exports)})}}}};Module.prototype.complete=function(){delete modulesInProgress[this.id];Script.prototype.complete.apply(this,arguments)};Module.prototype.execute=function(){var me=this;if(typeof this.body=="object"){this.exp(this.body)}else{if(typeof this.body=="function"){this.body.apply(window,[function(exports){me.exp(exports)}])}}};Module.prototype.exp=function(exports){if(this.times){aug(this.times,{eval:new Date()})}this.complete(this.exports=Module.exports[this.id]=exports||{})};function flattenDeps(deps){var flat=[];for(var i=0,d;d=deps[i];i++){if(d instanceof Sequence){flat=flat.concat(flattenDeps(d.deps))}else{if(d instanceof Module){flat.push(d)}}}return flat}function Collection(deps){this.deps=deps;if(this.deps.length==0){this.complete()}}Collection.prototype=new Dependency;Collection.prototype.start=function(){var me=this;function depComplete(){var results=[];for(var i=0,d;d=me.deps[i];i++){if(!d.completed){return }if(d.results.length>0){results=results.concat(d.results)}}me.complete.apply(me,results)}for(var i=0,d;d=this.deps[i];i++){d.then(depComplete)}return this};Collection.prototype.load=function(){for(var i=0,d;d=this.deps[i];i++){if(d.load){d.load(true)}}return this};Collection.prototype.as=function(cb){var me=this;return this.then(function(){var flatDeps=flattenDeps(me.deps),obj={};for(var i=0,d;d=flatDeps[i];i++){pushObjPath(obj,d.id,arguments[i])}cb.apply(this,[obj].concat(makeArray(arguments)))})};function Sequence(deps){this.deps=deps}Sequence.prototype=new Dependency;Sequence.prototype.start=function(){var me=this,nextDep=0,allResults=[];(function next(){var dep=me.deps[nextDep++];if(dep){dep.then(function(results){if(dep.results.length>0){allResults=allResults.concat(dep.results)}next()})}else{me.complete.apply(me,allResults)}}());return this};Sequence.prototype.load=function(){var me=this,nextDep=0;(function next(){var dep=me.deps[nextDep++];if(dep&&dep.load){dep.load(true).then(function(){next()})}}());return this};function interactiveScript(){for(var i in scripts){if(scripts[i].readyState=="interactive"){return activeScripts[scripts[i].id]}}}function defineModule(name,body){var module;if(!name&&useInteractive){module=currentScript||interactiveScript()}if(module){delete activeScripts[module.scriptId];module.body=body;module.execute()}else{loadedModule=module=new Module(name,body);modulesInProgress[module.id]=module}return module}function provide(){var args=makeArray(arguments),name,body;if(typeof args[0]=="string"){name=args.shift()}body=args.shift();return defineModule(name,body)}function amdResolve(id,mod){var from=mod.id||"";var parts=from.split("/");parts.pop();var dir=parts.join("/");return id.replace(/^\./,dir)}function amdMap(args,mod){var mapped=[];function require(id){return Module.exports[amdResolve(id,mod)]}for(var i=0,len=args.length;i<len;i++){if(args[i]=="require"){mapped.push(require);continue}if(args[i]=="exports"){mod.exports=mod.exports||{};mapped.push(mod.exports);continue}mapped.push(require(args[i]))}return mapped}function amdDefine(){var args=makeArray(arguments),dependencies=[],id,factory;if(typeof args[0]=="string"){id=args.shift()}if(isArray(args[0])){dependencies=args.shift()}factory=args.shift();var mod=defineModule(id,function(exports){var mods=[];function executeAMD(){var args=amdMap(makeArray(dependencies),mod),exported;if(typeof factory=="function"){exported=factory.apply(mod,args)}else{exported=factory}if(typeof exported=="undefined"){exported=mod.exports}exports(exported)}for(var i=0,len=dependencies.length;i<len;i++){var d=dependencies[i];if(indexOf(["require","exports"],d)==-1){mods.push(amdResolve(d,mod))}}if(mods.length>0){using.apply(this,mods.concat(executeAMD))}else{executeAMD()}});return mod}amdDefine.amd={};function using(){var deps=makeArray(arguments),callback;if(typeof deps[deps.length-1]=="function"){callback=deps.pop()}var combi=new Collection(mapDependencies(deps));if(callback){combi.then(callback)}return combi}function mapDependencies(deps){var mapped=[];for(var i=0,dep;dep=deps[i];i++){if(typeof dep=="string"){dep=createDependency(dep)}if(isArray(dep)){dep=new Sequence(mapDependencies(dep))}mapped.push(dep)}return mapped}function createDependency(id){var m,dep;for(var i=0,matcher;matcher=using.matchers[i];i++){var regex=matcher[0],factory=matcher[1];if(m=id.match(regex)){return factory(id)}}throw new Error(id+" was not recognised by loader")}var loadrunner=function(f){return f(using,provide,loadrunner,amdDefine)};function noConflict(){context.using=oldUsing;context.provide=oldProvide;context.define=oldDefine;context.loadrunner=oldLoadrunner;return loadrunner}loadrunner.Script=Script;loadrunner.Module=Module;loadrunner.Collection=Collection;loadrunner.Sequence=Sequence;loadrunner.Dependency=Dependency;loadrunner.noConflict=noConflict;context.loadrunner=loadrunner;context.using=using;context.provide=provide;context.define=amdDefine;using.path="";using.autoLoad=true;using.bundles=[];var whichBundleMemo={};function whichBundle(id){if(typeof whichBundleMemo[id]!="undefined"){return whichBundleMemo[id]}for(var manifestId=0;manifestId<using.bundles.length;manifestId++){for(var bundleId in using.bundles[manifestId]){if(bundleId!=id&&indexOf(using.bundles[manifestId][bundleId],id)>-1){whichBundleMemo[id]=bundleId;return bundleId}}}whichBundleMemo[id]=id;return id}using.matchers=[];using.matchers.add=function(regex,factory){this.unshift([regex,factory])};using.matchers.add(/(^script!|\.js$)/,function(path){var script=new Script(path.replace(/^\$/,using.path.replace(/\/$/,"")+"/").replace(/^script!/,""),false);script.id=path;return script});using.matchers.add(/^[a-zA-Z0-9_\-\/]+$/,function(id){return new Module(id)});if(scriptTag){using.path=scriptTag.getAttribute("data-path")||scriptTag.src.split(/loadrunner\.js/)[0]||"";if(main=scriptTag.getAttribute("data-main")){using.apply(context,main.split(/\s*,\s*/)).then(function(){})}}}(this,document));
+    loadrunner(function(D,C,B,E){function A(F){this.id=this.path=F}A.inProgress=[];A.done=[];A.prototype=new B.Dependency;A.prototype.start=function(){var F=this,G;if(G=A.done[this.id]){this.complete(G.result)}else{if(G=A.inProgress[this.id]){G.then(function(){F.complete(G.result)})}else{A.inProgress[this.id]=this;this.load()}}};A.prototype.load=function(){var H,F=this;if(window.XMLHttpRequest){H=new window.XMLHttpRequest()}else{try{H=new window.ActiveXObject("Microsoft.XMLHTTP")}catch(G){return new Error("XHR not found.")}}H.onreadystatechange=function(){if(H.readyState==4){F.result=H.responseText;A.done[F.id]=F;delete A.inProgress[F.id];F.complete(F.result)}};H.open("GET",this.path,true);H.send(null)};D.matchers.add(/^json!/,function(F){return new A(F.substring(5))})});
+    loadrunner(function(D,C,B,E){function A(F){this.id=this.path=F}A.inProgress=[];A.done=[];A.prototype=new B.Dependency;A.prototype.start=function(){var F=this,G;if(G=A.done[this.id]){this.complete(G.result)}else{if(G=A.inProgress[this.id]){G.then(function(){F.complete(G.result)})}else{A.inProgress[this.id]=this;this.load()}}};A.prototype.load=function(){var F=this;D("lib/lazyload",function(G){if($("link[href='"+F.path+"']").length>0){H()}else{G.css(F.path,H)}function H(){A.done[F.id]=F;delete A.inProgress[F.id];F.complete()}})};D.matchers.add(/^css!/,function(F){return new A(F.replace(/^css!/,"").replace(/^\//,(D.cssPath||"").replace(/\/$/,"")+"/"))})});
+    loadrunner(function(F,E,A,G){function B(H,I){for(var J=0,K;K=H[J];J++){if(I==K){return J}}return -1}function D(I){var H;if(I.charAt(0)==">"){I=I.substring(1)}if(H=C.inProgress[I]){H.complete();delete C.inProgress[I]}C.done.push(I)}var C=function(H){this.id=H};C.inProgress=[];C.done=[];C.prototype=new A.Dependency;C.prototype.start=function(){var I,H=this;if(B(C.done,this.id)!=-1){this.complete()}else{if(I=C.inProgress[this.id]){I.then(function(){H.complete()})}else{C.inProgress[this.id]=this}}};F.matchers.add(/^>/,function(H){return new C(H.substring(1))});window.signal=D});
+});</script><script>WATCH.end('loadrunner');</script>
+
+
+
+  
+    <script type="text/javascript">WATCH('javascript_logged_out', function() {
+
+  
+  (function(){
+    function miniScribe(eName,more,cat){
+var log=[],cat=cat||'client_event',more=more||{};more.event_name=eName;for(var k in more){log.push('"'+k+'":"'+more[k]+'"');};
+(new Image()).src='//scribe.twitter.com/scribe?category='+encodeURIComponent(cat)+'&log='+encodeURIComponent('{'+log.join(',')+'}')+'&ts='+(+new Date);
+}
+
+    function el(i,t) { var d = i.tagName ? i : document.getElementById(i); return t ? d.getElementsByTagName(t) : d; }
+    function byCls(a,c,f) { for (var i = a.length - 1; i >= 0; i--){ var k = a[i].className, m = k && k.match(c); if(m) { f.call(a[i], m[0]) } }; }
+    function rmCls(d,c) { return d.className = d.className.replace(' '+c,''); }
+    function addCls(d,c) { return d.className = rmCls(d,c)+' '+c; }
+
+    if(!location.href.match(/#!\/./)) {
+      var b = document.body;
+      rmCls(b, 'user-style-twttr loading-body');
+      addCls(b, 'front-page');
+      miniScribe("web:front:::impression", {context: 'front'});
+      window._scribedFrontImpression = true;
+    }
+
+    var divs = el('front-container', 'div'), c = 'hasome';
+
+    byCls(divs, 'holding', function() {
+      var div = this, inp = el(div, 'input')[0], spn = el(div,'span')[0];
+      if(inp && spn) {
+        spn.onclick = function() { inp.focus(); };
+        inp.onblur = function() { if(!inp.value.length) rmCls(div,c); }
+        inp.onkeydown = function(e) {
+          setTimeout(function() { ((e&&e.keyCode==8) || inp.value.length) ? addCls(div,c) : rmCls(div,c); },0);
+        };
+      }
+    });
+
+    window.setInterval(function() {
+      byCls(divs, 'holding', function() { var f=el(this, 'input')[0]; if(f && f.value.length) addCls(this,c); });
+    }, 1111);
+
+    var eventMap={signin:'web:front:login_callout:form:login_click',
+                  signup:'web:front:signup_callout:form:signup_click',
+                  search:'web:front:main:search_field:search',
+                  language:'web:front:footer:language_selector:select'};
+    byCls(divs, 'signin|signup|search|language', function(k) {
+      var f = el(this, 'form'), evt = eventMap[k];
+      if(f && f[0]) {
+        f[0].onsubmit = function() {
+          if(!el('doc').className.match('route-front')){ miniScribe(evt); }
+        }
+      }
+    });
+  }());
+
+});</script>
+<script type="text/javascript">WATCH.end('javascript_logged_out');</script>
+
+  
+
+
+
+
+<script>WATCH('boot', function() {
+  using.cssPath = 'http://a3.twimg.com/a/1315857904/';
+  using.path = 'http://a1.twimg.com/a/1315857904/phoenix/js';
+  using.autoLoad = false;
+
+  
+
+  provide("boot/init",function(C){var A={add:function(J,K){if(!K){K=new Date()}twttr.bootTimings.data.push({name:J,timestamp:K})},data:[],done:function(){twttr.bootTimings.add=twttr.bootTimings.done=$.noop;$.each(loadrunner.Script.times,function(J,K){$.each(K,function(L,M){twttr.bootTimings.data.push({name:["bundle",J,L].join(" "),timestamp:M})})});twttr.Profiler.logDataSet("Boot",twttr.appStartTime,twttr.bootTimings.data);twttr.bootTimings=null}};function G(K){for(var J in K){if(K.hasOwnProperty(J)){twttr[J]=K[J]}}}function H(J){twttr.bootTimings&&twttr.bootTimings.add("bootstrap_data process start");G(J.twttr);signal(">payload");if(J.boomr){using(J.boomr).load().then(function(){delete BOOMR.plugins.RT;BOOMR.init({allow_ssl:true,autorun:false,user_ip:J.remoteIP,BW:{base_url:twttr.hosts.local+"/images/boomerang/"}});using(">setupComplete","util").as(function(K){BOOMR.page_ready();BOOMR.subscribe("before_beacon",function(O){if(!O.bw){return }var M=parseInt(O.bw/1024,10);var N=parseInt((O.bw_err*100)/O.bw,10);var L=parseInt((O.lat_err*100)/O.lat,10);scribble("measurement",{load_time_ms:O.t_done,bandwidth_kbytes:M,bandwidth_error_percent:N,latency_ms:O.lat,latency_error_percent:L,product:"webclient"},"boomerang");if(K.util.params()["boomr"]){twttr.showMessage("Bandwidth: "+K.util.addCommas(M)+" KB/s &plusmn; "+N+"%<br />Latency: "+O.lat+" ms &plusmn; "+O.lat_err,true)}})})})}if(J.pageLocaleJS){twttr.bootTimings&&twttr.bootTimings.add("i18n fetch start");using(J.pageLocaleJS).load().then(function(){twttr.bootTimings&&twttr.bootTimings.add("i18n fetch finish");signal(">languageData")})}else{signal(">languageData")}using(">defaultViews",twttr.bundleMore,function(){if(J.showWelcomeBanner){(new twttr.views.WelcomeToPhoenixBanner()).render($("#banners"),"append")}if(J.flashNotice){$("#flash-message-storage").html(J.flashNotice).show()}});using(">decider",function(){twttr.decider._updateFeatures(J.deciderFeatures,true)});using(">ab_decider",function(){twttr.abdecider._updateExperiments(J.abBuckets,true)});using(">api_ready",function(){twttr.API.setConfig({postAuthenticityToken:J.postAuthenticityToken});$("input.authenticity_token").val(J.postAuthenticityToken);var N=J.requestCacheSeedData;for(var L=0,K=N.length;L<K;++L){var M=N[L];twttr.API._requestCache.inject(M.api_request_name,M.options,M.json,1)}signal(">request_cache_seeded");if(J.homeTimelineFetchSize){twttr.API.homeTimelineFetchSize=J.homeTimelineFetchSize}});twttr.bootTimings&&twttr.bootTimings.add("bootstrap_data process finish")}function B(){twttr.anywhere.api.initialize();twttr.API={};twttr.aug(twttr.API,twttr.anywhere.api.models);twttr.aug(twttr.API,{globalEvents:twttr.anywhere.api.globalEvents});twttr.API.setConfig=twttr.anywhere.api.updateConfig;twttr.API.getConfig=function(){return twttr.anywhere.api.config};if(!twttr.API.util){twttr.API.util={}}twttr.aug(twttr.API.util,twttr.anywhere.api.util);if(!twttr.API._requestCache){twttr.API._requestCache=twttr.anywhere.api.cache}twttr.API.setConfig({cacheObjects:true,includeEntities:true});twttr.extendAPI()}function D(){if(twttr.loggedIn){twttr.bootTimings&&twttr.bootTimings.add("initCurrentUser start");using("boot/bootstrap_data",">request_cache_seeded",function(J){twttr.API.User.current({error:function(){window.location.reload(true)},success:function(K){twttr.currentUser=K;for(var L in J.userProperties){twttr.currentUser.sync(L,J.userProperties[L]||false)}twttr.bootTimings&&twttr.bootTimings.add("initCurrentUser finish");signal(">allCurrentUserDataLoaded")}})})}else{signal(">allCurrentUserDataLoaded")}}function F(J){var K=new Date();using(J).load().then(function(){var L=new Date();using("boot/bootstrap_data",function(){twttr.Profiler.logPreviousEvent("twttr.bundles fetched",K,L)})})}function E(N){var J=false;function M(){if(!J){setTimeout(function(){J=true;N()},0)}}var K=document.getElementById("stream-items-id");if(!K){N();return }if(K.clientHeight>0){setTimeout(M,0);return }function L(){K.onresize=null;setTimeout(M,0)}K.onresize=L}function I(K){for(var J in K){return false}return true}C({init:function(K){if(K.renderedOnServer&&K.twttr.loggedIn){var J=document.getElementsByTagName("html")[0];if(J.className.match(/use-prerendered-content/)){document.getElementById("global-nav-home").className+=" active"}else{if(J.className.match(/remove-prerendered-content/)){var M=document.getElementById("page-container");M.className=M.className.replace("home-container","");M.innerHTML=""}}J.className=J.className.replace("use-prerendered-content","").replace("remove-prerendered-content","")}if(K.disablePhoenix){return }G(K.twttr);twttr.appStartTime=document.startTime;twttr.geo=twttr.geo||{};twttr.session=twttr.session||{};twttr.session.impressionId=twttr.appStartTime+Math.random();twttr.isLocalhost=location.hostname.match(/localhost\.twitter\.com/);twttr.bootTimings=K.profiling?A:null;for(var L=0;L<K.loadrunnerAssets.length;L++){using.bundles.push(K.loadrunnerAssets[L])}if(K.loadrunnerAssets.length==1&&I(K.loadrunnerAssets[0])){using.autoLoad=true}twttr.proto=window.location.protocol.replace(":","");twttr.isSSL=function(){return twttr.proto==="https"};twttr.createIframe=function(O,N){var R=document.createElement("div");R.innerHTML='<iframe tabindex="-1" role="presentation" style="position:absolute;top:-9999px;" src="'+O+'"></iframe>';var P=R.firstChild;var Q=function(){N.apply(P,arguments)};P.addEventListener?P.addEventListener("load",Q,false):P.attachEvent("onload",Q);document.body.insertBefore(P,document.body.firstChild);return P};if(!K.inline_bootstrap_data){provide("boot/bootstrap_data",function(N){var O=[];O.push("json!/account/bootstrap_data"+window.location.search+(window.location.search?"&":"?")+"r="+Math.random());if(typeof JSON==="undefined"){O.push(twttr.bundleCore)}twttr.bootTimings&&twttr.bootTimings.add("bootstrap_data fetch start");using(O,function(Q){twttr.bootTimings&&twttr.bootTimings.add("bootstrap_data fetch finish");var P=JSON.parse(Q);N(P)})})}F(K.assets);using(twttr.bundleCore,function(){twttr.anywhere.remote={};B();signal(">api_ready");using(">request_cache_seeded",function(){D()})});using(K.setupDependencies,function(){twttr.bootTimings&&twttr.bootTimings.add("setup start");jQuery.ready();twttr.setup();twttr.bootTimings&&twttr.bootTimings.add("setup finish");signal(">setupComplete");var N=function(){using(twttr.bundleMore).load()};if($.browser.msie&&(parseInt($.browser.version,10)<=7)){E(N)}else{N()}});using(twttr.bundleMore,function(){signal(">allCodeLoaded")});using("boot/bootstrap_data",H);twttr.createIframe(K.pReceiverURL,function(){var N=this;using(twttr.bundleCore,function(){twttr.anywhere.remote.server=N;twttr.anywhere.api.util.RemoteRequest.flush()})})}})});
+  using('boot/init', function(boot) {
+    var data = {"inline_bootstrap_data":false,"pReceiverURL":"http:\/\/api.twitter.com\/receiver.html","setupDependencies":["\u003EallCurrentUserDataLoaded","\u003Erequest_cache_seeded","bundle\/phoenix-core","\u003ElanguageData"],"twttr":{"placeDataPrefix":"http:\/\/geo.l3.twitter.com\/places\/autocomplete_places-","bundleMore":"bundle\/phoenix-more","expando":false,"remoteIP":"143.90.171.158","domains":{"remote":"api.twitter.com","local":"twitter.com","upload":"upload.twitter.com"},"requestFullCity":"jp,40,tokyo","bundleCore":"bundle\/phoenix-core","hosts":{"remote":"http:\/\/api.twitter.com","local":"http:\/\/twitter.com","upload":"http:\/\/upload.twitter.com"},"loggedIn":false,"isT1":false},"assets":["bundle\/phoenix-core"],"sandboxes":{"jsonp":"http:\/\/a3.twimg.com\/a\/1315857904\/jsonp_sandbox.html","detailsPaneContent":"http:\/\/a0.twimg.com\/a\/1315857904\/details_pane_content_sandbox.html"},"disablePhoenix":false,"loadrunnerAssets":[{"http:\/\/a3.twimg.com\/b\/bundle\/sandbox-en-201108161000.js":["bundle\/sandbox"],"http:\/\/a2.twimg.com\/b\/bundle\/phoenix-core-en-201109121310.js":["bundle\/phoenix-core"],"http:\/\/a0.twimg.com\/b\/bundle\/phoenix-more-en-201109121310.js":["bundle\/phoenix-more"],"http:\/\/a0.twimg.com\/b\/bundle\/ie6-en-201108161000.js":["bundle\/ie6"],"http:\/\/a0.twimg.com\/b\/bundle\/signup-en-201109071148.js":["bundle\/signup"]}],"renderedOnServer":false,"profiling":true};
+    boot.init(data);
+  });
+});</script><script>WATCH.end('boot');</script>
+
+
+
+<!--[if lte IE 6]>
+  <script>using('bundle/ie6').load();</script>
+<![endif]-->
+
+
+    
+  </body>
+
+
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+	<ui:define name="head">
+		<script type="text/javascript">
+    function rollOver(img_name, img_src)
+    {
+    document[img_name].src = img_src;
+    }
+    function Over(img_id, img_src){
+    document.getElementById(img_id).value = img_src;
+        }	
+    var clip = null;
+
+    jQuery(document).ready(
+    		function(){
+            onTableReady();			 
+    		});
+    function onTableReady(){
+	    init();	
+	    jQuery('a[name=modal]').click(function(e) {
+			//Cancel the link behavior
+			e.preventDefault();
+			//Get the A tag
+			var id = jQuery(this).attr('href');
+		
+			//Get the screen height and width
+			var maskHeight =jQuery(document).height();
+			var maskWidth = jQuery(window).width();
+		
+			//Set height and width to mask to fill up the whole screen
+			jQuery('#mask').css({'width':maskWidth,'height':maskHeight});
+			
+			//transition effect		
+			jQuery('#mask').fadeIn(100);	
+			jQuery('#mask').fadeTo("slow",0.3);	
+		
+			//Get the window height and width
+			var winH = jQuery(window).height();
+			var winW = jQuery(window).width();
+	              
+			//Set the popup window to center
+			jQuery(id).css('top',  winH/2-jQuery(id).height()/2);
+			jQuery(id).css('left', winW/2-jQuery(id).width()/2);
+		
+			//transition effect
+			jQuery(id).fadeIn(100); 
+		
+		});
+		
+		//if close button is clicked
+		jQuery('.window .close').click(function (e) {
+			//Cancel the link behavior
+			e.preventDefault();
+			jQuery('#mask, .window').hide();
+		});		
+		
+		//if mask is clicked
+		jQuery('#mask').click(function () {
+			jQuery(this).hide();
+			jQuery('.window').hide();
+		});
+    	}
+
+	
+    jQuery(".buttons").click(function(){
+     
+   });
+	
+	function init() {
+		clip = new ZeroClipboard.Client();
+		clip.setHandCursor( true );
+		
+		clip.addEventListener('load', my_load);
+		clip.addEventListener('mouseOver', my_mouse_over);
+		clip.addEventListener('complete', my_complete);
+	
+		
+		jQuery('#zero_clipboard').html( clip.getHTML(30, 30) );
+	}
+	
+	function my_load(client) {
+		debugstr("Flash movie loaded and ready.");
+	}
+	
+	function my_mouse_over(client) {
+		// we can cheat a little here -- update the text on mouse over
+		clip.setText( $('fe_text').value );
+	}
+	
+	function my_complete(client, text) {
+		debugstr("Copied text to clipboard: " + text );
+	}
+	
+	function debugstr(msg) {
+		var p = document.createElement('p');
+		p.innerHTML = msg;
+		$('d_debug').appendChild(p);
+	}  
+	function triggerClick(){
+      
+		}
+	function show(){
+		jQuery('#show_hide').toggle('slow');
+		
+		}
+	
+    </script>
+	</ui:define>
+	<ui:define name="menu">
+
+		<div id="sign_in">
+		<div id="logged_in"><h:outputText
+			value="Hi, #{authenticator.user.fullname}" /></div>
+		<div id="logged_in_buttons">
+				<h:form>
+				<h:graphicImage value="/img/logout2.png" style="cursor:pointer;" onmouseover="jQuery(this).attr('src','img/logout.png');" onmouseout="jQuery(this).attr('src','img/logout2.png');">
+					<a4j:support action="#{authenticator.LogOut()}" event="onclick"/>
+					</h:graphicImage>
+				<h:graphicImage value="/img/settings.png" />
+				</h:form>
+		</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="body">
+       <div id="main_buttons">
+       <h:form>
+       <h:graphicImage value="img/manager_state.png" style="cursor:pointer;" >
+	   		<a4j:support event="onclick" action="#{authenticator.moveToPasswords()}" ajaxSingle="true"/>
+	   </h:graphicImage>
+	   <div style="height: 20px;"></div>
+       <h:graphicImage value="img/history.png" style="cursor:pointer;" onmouseover="jQuery(this).attr('src','img/history_over.png');"
+											   onmouseout="jQuery(this).attr('src','img/history.png');">
+	   <a4j:support event="onclick" action="#{authenticator.moveToHistory()}" ajaxSingle="true"  />
+	   </h:graphicImage>
+	   <div style="height: 10px;"></div>
+       <h:graphicImage value="img/sms.png" style="cursor:pointer;" onmouseover="jQuery(this).attr('src','img/sms_over.png');"
+											   onmouseout="jQuery(this).attr('src','img/sms.png');">
+	   <a4j:support event="onclick" action="#{authenticator.moveToSMS()}" ajaxSingle="true"  />
+	   </h:graphicImage>
+	   </h:form>
+       </div>
+		<div id="boxes">
+
+		<div id="dialog" class="window"><rich:panel>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Retrieve Password"></h:outputText>
+					<h:graphicImage value="img/x.png" class="close"
+						style="float:right; cursor:pointer;" />
+				</h:panelGroup>
+			</f:facet>
+			<h:panelGrid columns="3" cellspacing="2px;">
+				<s:div id="wrapper2" style="position:relative">
+					<h:inputText value="#{authenticator.pass_content}"
+						style="height: 30px; width:150px; text-align:center; font-family: 'Trebuchet MS'; font-size: 16px;"
+						id="fe_text" onChange="clip.setText(this.value)" />
+					<div id="show_hide"
+						style="position: absolute; background-mage: url('img/hidden.png'); left: 0px; top: 0px; width: 153px; height: 33px; z-index: 99"></div>
+				</s:div>
+				<a4j:outputPanel id="hide_show">
+					<h:graphicImage value="#{authenticator.show_hide}"
+						onclick="jQuery('#show_hide').toggle('slow');">
+						<a4j:support action="#{authenticator.toggle()}" event="onclick"
+							reRender="hide_show" ajaxSingle="true" />
+					</h:graphicImage>
+				</a4j:outputPanel>
+				<s:div id="wrapper" style="position:relative">
+					<h:graphicImage value="img/copy.png" />
+					<div id="zero_clipboard"
+						style="position: absolute; left: 0px; top: 0px; width: 30px; height: 30px; z-index: 99"></div>
+				</s:div>
+
+
+			</h:panelGrid>
+
+
+		</rich:panel></div>
+
+		</div>
+
+
+		<div id="content"><a4j:outputPanel id="passwordList">
+			<s:div id="left_side" rendered="#{authenticator.user.pass.size()!=0}">
+				<div id="newpass"><h:form>
+					<h:graphicImage value="img/newpass.png" id="createnew"
+						onclick="Richfaces.showModalPanel('transitionWaitPanel', {height:'475px', width:'410px'}); refresh();" />
+
+
+					<a4j:jsFunction name="refresh"
+						action="#{authenticator.refreshAddPasswordPanel()}" reRender="out">
+					</a4j:jsFunction>
+				</h:form></div>
+			</s:div>
+
+			<s:div id="FirstPassword"
+				rendered="#{authenticator.user.pass.size()==0}">
+
+				<center>Welcome to Online Password Manager.</center>
+				<center>You don't have any passwords, follow instructions
+				below to get started!</center>
+
+				<img src="img/createbutton.png" id="firstPss" name="but1"
+					onclick="Richfaces.showModalPanel('transitionWaitPanel', {height:'475px', width:'410px'});"
+					onmouseover="rollOver('but1','img/createbuttonOver.png')"
+					onmouseout="rollOver('but1','img/createbutton.png')" />
+
+			</s:div>
+			<s:div id="right_side"
+				rendered="#{authenticator.user.pass.size()!=0}">
+				<div id="top_con"></div>
+				<div id="mid_con">
+				<div style="height: 10px;"></div>
+				<div id="#{authenticator.styleForPasswords}"><rich:dataGrid var="p"
+					value="#{authenticator.user.pass}" columns="2"
+					style="background-color: transparent;">
+					<rich:column>
+						<div class="password">
+						<div id="ps_main">
+						<div id="column1"><h:graphicImage value="#{p.icon}"
+							style="width:66px; height:66px; margin-top:1px; margin-left:2px;" />
+					     <div style="margin-top:4px; margin-left:-1px; background-color:black; width:72px;">
+					 
+					     	<h:graphicImage value="img/status2.png" />
+					
+					     	<h:graphicImage value="img/status_ok4.png" height="31px" width="61px;" rendered="#{p.DiffDate()>3}" />
+							<h:graphicImage value="img/status_last.gif" height="31px" width="61px;" rendered="#{2>=p.DiffDate()}" />
+							<h:graphicImage value="img/status_mid.png" height="31px" width="61px;" rendered="#{p.DiffDate()==3}" />
+					     </div>
+						
+						</div>
+						<div id="column23">
+						<div style="height: 4px;"></div>
+						<h:form id="passform">
+							<div id="ps_header"><a href="http://#{p.url}"
+								target="_blank"><h:outputText value="#{p.pass_name}" /></a> <h:panelGrid
+								columns="2">
+								<h:panelGrid columns="1" cellspacing="0px;">
+									<h:outputText value="Username: "
+										style="font-size:10px; color: grey; float:left;" />
+									<h:inputText value="#{p.pass_username}"
+										style="width:100px; height: 25px;" />
+									<h:panelGrid columns="2" cellspacing="0px;">
+										<a href="#dialog" name="modal"> Get Password <a4j:support
+											event="onclick" action="#{authenticator.CopyToClipboard(p)}"
+											reRender="fe_text" /> </a>
+
+
+									</h:panelGrid>
+								</h:panelGrid>
+								<h:panelGrid columns="1" style="float:right;" cellspacing="0px;"
+									cellpadding="0px;">
+									<h:outputText value="Strength: "
+										style="font-size:10px; color: grey; float:left; margin-top:-6px;" />
+									<h:graphicImage value="#{p.strenght}" />
+								</h:panelGrid>
+
+							</h:panelGrid></div>
+							<div id="delup_but"><h:graphicImage
+								value="img/updatepass.png" 
+								onmouseover="jQuery(this).attr('src','img/updatepass_over.png');"
+								onmouseout="jQuery(this).attr('src','img/updatepass.png');">
+								<a4j:support event="onclick"
+									action="#{authenticator.preUpdate(p)}" reRender="out2"
+									ajaxSingle="true"
+									oncomplete="Richfaces.showModalPanel('updatePanel',{height:'475px', width:'410px'})" />
+							</h:graphicImage> <h:graphicImage value="img/deletepass.png"
+								style="margin-left:4px; cursor:pointer;"
+								onmouseover="jQuery(this).attr('src','img/deletepass_over.png');"
+								onmouseout="jQuery(this).attr('src','img/deletepass.png');">
+								<a4j:support event="onclick" action="#{authenticator.delete(p)}"
+									ajaxSingle="true" reRender="out, passwordList"
+									oncomplete="onTableReady()" />
+							</h:graphicImage>
+							</div>
+						</h:form></div>
+						<div id="column3">
+						<div id="#{p.styleForDays()}">
+						<center><h:outputText value="#{p.DiffDate()}" /></center>
+						</div>
+						<div id="d#{p.styleForDays()}">
+						<center><h:outputText value="#{p.DaysOrDay()}" /></center>
+						</div>
+						</div>
+
+						</div>
+						</div>
+					</rich:column>
+				</rich:dataGrid></div>
+				</div>
+				<div id="btm_con"></div>
+			</s:div>
+			<!-- Right Side -->
+		</a4j:outputPanel></div>
+		<!-- Content -->
+		<rich:modalPanel id="transitionWaitPanel">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Create New Password"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="img/x.png" styleClass="hidelink"
+						id="hidelink"
+						style="cursor:pointer; margin-top:2px; margin-right:1px;" />
+					<rich:componentControl for="transitionWaitPanel"
+						attachTo="hidelink" operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="out">
+				<h:panelGrid columns="2">
+					<rich:panel style="border:0px;">
+						<h:panelGrid columns="1">
+							<h:graphicImage id="icon" value="#{authenticator.img}"
+								style="heigth:100px; width:100px;" />
+							<h:outputText value="Password Strength:"
+								style="font-size:11px; color:grey; margin-top:10px;" />
+							<h:graphicImage value="#{authenticator.strength_image}" id="str"
+								style="margin-left:5px;" />
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel>
+						<h:panelGrid columns="2" cellspacing="4px;">
+							<h:outputText value="Name: " style="font-size:14px; color:grey;" />
+							<h:inputText value="#{authenticator.pas.pass_name}"
+								style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'" />
+							<h:outputText value="Username: "
+								style="font-size:14px; color:grey;" />
+							<h:inputText value="#{authenticator.pas.pass_username}"
+								style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'" />
+							<h:outputText value="Icon: " style="font-size:14px; color:grey;" />
+							<h:selectOneMenu value="#{authenticator.defaultOther}"
+								style="float:right;">
+								<a4j:support event="onchange" reRender="iconOP, icon"
+									ajaxSingle="true" />
+								<f:selectItem itemLabel="Default Icon" itemValue="0" />
+								<f:selectItem itemLabel="Other Icon" itemValue="1" />
+							</h:selectOneMenu>
+							<h:outputText value=" " />
+							<a4j:outputPanel id="iconOP">
+								<h:inputText value="#{authenticator.iconUrl}"
+									rendered="#{authenticator.defaultOther!=0}"
+									style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'">
+									<a4j:support event="onblur" reRender="icon" ajaxSingle="true" />
+								</h:inputText>
+							</a4j:outputPanel>
+							<h:outputText value="Website URL: "
+								style="font-size:14px; color:grey;" />
+							<h:inputText value="#{authenticator.pas.url}"
+								style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'" />
+							<h:outputText value="Notify Duration: "
+								style="font-size:14px; color:grey;" />
+							<h:selectOneMenu value="#{authenticator.passDuration}"
+								style="float:right">
+								<f:selectItem itemLabel="1 week" itemValue="7" />
+								<f:selectItem itemLabel="3 week" itemValue="21" />
+								<f:selectItem itemLabel="1 month" itemValue="30" />
+								<f:selectItem itemLabel="3 months" itemValue="90" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<h:outputText value="Password: " style="color:grey;" />
+					<h:inputText value="#{authenticator.created_password}"
+						style="height: 30px; width:380px; text-align:center; font-family: 'Trebuchet MS'; font-size: 16px;">
+						<a4j:support event="onkeyup"
+							action="#{authenticator.checkStrength()}" reRender="str"
+							ajaxSingle="true" />
+					</h:inputText>
+					<h:outputText value="Password Lenght: " style="color:grey;" />
+					<rich:inputNumberSlider value="#{authenticator.passwordLength}"
+						width="380px" maxValue="20" step="1" showToolTip="false" />
+					<h:outputText value="Characters to use: " style="color:grey;" />
+					<h:panelGrid columns="4">
+
+						<h:selectManyCheckbox value="#{authenticator.optionList}"
+							style="margin-left:20px;">
+							<f:selectItem itemLabel="Upper case" itemValue="u" />
+							<f:selectItem itemLabel="Lower case" itemValue="l" />
+							<f:selectItem itemLabel="Numbers" itemValue="n" />
+							<f:selectItem itemLabel="Special chars" itemValue="s" />
+						</h:selectManyCheckbox>
+
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<a4j:commandButton action="#{authenticator.generatePassword()}"
+							value="Generate Password" style="height: 30px; width:180px;"
+							reRender="out" />
+						<a4j:commandButton action="#{authenticator.addPassword()}"
+							id="savebutton" value="Save Password"
+							style="height: 30px; width:180px;" reRender="out, passwordList"
+							oncomplete="onTableReady()" />
+						<rich:componentControl for="transitionWaitPanel"
+							attachTo="savebutton" operation="hide" event="onclick" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+		<rich:modalPanel id="updatePanel">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Update Panel"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="img/x.png" styleClass="hidelink"
+						id="hidelink2"
+						style="cursor:pointer; margin-top:2px; margin-right:1px;" />
+					<rich:componentControl for="updatePanel" attachTo="hidelink2"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="out2">
+				<h:panelGrid columns="2">
+					<rich:panel style="border:0px;">
+						<h:panelGrid columns="1">
+							<h:graphicImage id="icon" value="#{authenticator.img}"
+								style="heigth:100px; width:100px;" />
+							<h:outputText value="Password Strength:"
+								style="font-size:11px; color:grey; margin-top:10px;" />
+							<h:graphicImage value="#{authenticator.strength_image}" id="str"
+								style="margin-left:5px;" />
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel>
+						<h:panelGrid columns="2" cellspacing="4px;">
+							<h:outputText value="Name: " style="font-size:14px; color:grey;" />
+							<h:inputText value="#{authenticator.pas.pass_name}"
+								style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'" />
+							<h:outputText value="Username: "
+								style="font-size:14px; color:grey;" />
+							<h:inputText value="#{authenticator.pas.pass_username}"
+								style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'" />
+							<h:outputText value="Icon: " style="font-size:14px; color:grey;" />
+							<h:selectOneMenu value="#{authenticator.defaultOther}"
+								style="float:right;">
+								<a4j:support event="onchange" reRender="iconOP, icon"
+									ajaxSingle="true" />
+								<f:selectItem itemLabel="Default Icon" itemValue="0" />
+								<f:selectItem itemLabel="Other Icon" itemValue="1" />
+							</h:selectOneMenu>
+							<h:outputText value=" " />
+							<a4j:outputPanel id="iconOP">
+								<h:inputText value="#{authenticator.iconUrl}"
+									rendered="#{authenticator.defaultOther!=0}"
+									style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'">
+									<a4j:support event="onblur" reRender="icon" ajaxSingle="true" />
+								</h:inputText>
+							</a4j:outputPanel>
+							<h:outputText value="Website URL: "
+								style="font-size:14px; color:grey;" />
+							<h:inputText value="#{authenticator.pas.url}"
+								style="height:25px; width:150px; font-size:14px; font-family:'Trebuchet MS'" />
+							<h:outputText value="Notify Duration: "
+								style="font-size:14px; color:grey;" />
+							<h:panelGrid columns="3">
+								<h:selectBooleanCheckbox value="#{authenticator.change}">
+									<a4j:support event="onchange" reRender="selectMenu" ajaxSingle="true"/>
+								</h:selectBooleanCheckbox>
+								<h:outputText value="Change" style="font-size:10px;"/>
+								<a4j:outputPanel id="selectMenu">
+								<h:selectOneMenu value="#{authenticator.passDuration}"
+									style="float:right" rendered="#{authenticator.change==true}">
+									<f:selectItem itemLabel="1 week" itemValue="7" />
+									<f:selectItem itemLabel="3 week" itemValue="21" />
+									<f:selectItem itemLabel="1 month" itemValue="30" />
+									<f:selectItem itemLabel="3 months" itemValue="90" />
+								</h:selectOneMenu>
+								</a4j:outputPanel>
+								
+							</h:panelGrid>
+
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<h:outputText value="Password: " style="color:grey;" />
+					<h:inputText value="#{authenticator.created_password}"
+						style="height: 30px; width:380px; text-align:center; font-family: 'Trebuchet MS'; font-size: 16px;">
+						<a4j:support event="onkeyup"
+							action="#{authenticator.checkStrength()}" reRender="str"
+							ajaxSingle="true" />
+					</h:inputText>
+					<h:outputText value="Password Lenght: " style="color:grey;" />
+					<rich:inputNumberSlider value="#{authenticator.passwordLength}"
+						width="380px" maxValue="20" step="1" showToolTip="false" />
+					<h:outputText value="Characters to use: " style="color:grey;" />
+					<h:panelGrid columns="4">
+
+						<h:selectManyCheckbox value="#{authenticator.optionList}"
+							style="margin-left:20px;">
+							<f:selectItem itemLabel="Upper case" itemValue="u" />
+							<f:selectItem itemLabel="Lower case" itemValue="l" />
+							<f:selectItem itemLabel="Numbers" itemValue="n" />
+							<f:selectItem itemLabel="Special chars" itemValue="s" />
+						</h:selectManyCheckbox>
+
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<a4j:commandButton action="#{authenticator.generatePassword()}"
+							value="Generate Password" style="height: 30px; width:180px;"
+							reRender="out2" />
+						<a4j:commandButton action="#{authenticator.update()}"
+							id="updatebutton" value="Update Password"
+							style="height: 30px; width:180px;" reRender="out2, passwordList"
+							oncomplete="onTableReady()" />
+						<rich:componentControl for="updatePanel" attachTo="updatebutton"
+							operation="hide" event="onclick" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+
+
+
+	</ui:define>
+
+</ui:composition>

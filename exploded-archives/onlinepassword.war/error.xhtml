@@ -1,0 +1,27 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+    <ui:param name="showGlobalMessages" value="false"/>
+    <ui:define name="body">
+    <div style="margin-left:400px; width:400px; height:200px;"> 
+     <rich:panel>
+        <h1>Error</h1>
+        <p>Please re-enter your password</p>
+		<p>The password you entered is incorrect. Please try again (make sure your caps lock is off).</p>
+		<p> Forgot your password?<s:link> Request a new one.</s:link></p>
+        <h:messages id="errorMessage" styleClass="message"/>
+      </rich:panel> 
+      <h:form>
+     <h:commandButton value="Go Back" action="#{authenticator.goBack()}" />
+     </h:form>
+    </div>  
+     <div style="position:relative; height:300px;"></div>
+    </ui:define>
+</ui:composition>
