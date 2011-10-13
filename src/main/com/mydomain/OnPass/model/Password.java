@@ -23,7 +23,6 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.Parameter;
 import org.jasypt.hibernate.type.EncryptedStringType;
 
-
 @Entity
 @Table(name="Passwords")
 
